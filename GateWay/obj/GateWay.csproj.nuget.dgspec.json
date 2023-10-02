@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Maayan\\cloudCompting\\GateWay\\GateWay\\GateWay.csproj": {}
+    "C:\\Users\\Maayan\\IceCream-Maayan&Hadas\\GateWay\\GateWay\\GateWay.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Maayan\\cloudCompting\\GateWay\\GateWay\\GateWay.csproj": {
+    "C:\\Users\\Maayan\\IceCream-Maayan&Hadas\\GateWay\\GateWay\\GateWay.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Maayan\\cloudCompting\\GateWay\\GateWay\\GateWay.csproj",
+        "projectUniqueName": "C:\\Users\\Maayan\\IceCream-Maayan&Hadas\\GateWay\\GateWay\\GateWay.csproj",
         "projectName": "GateWay",
-        "projectPath": "C:\\Users\\Maayan\\cloudCompting\\GateWay\\GateWay\\GateWay.csproj",
+        "projectPath": "C:\\Users\\Maayan\\IceCream-Maayan&Hadas\\GateWay\\GateWay\\GateWay.csproj",
         "packagesPath": "C:\\Users\\Maayan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Maayan\\cloudCompting\\GateWay\\GateWay\\obj\\",
+        "outputPath": "C:\\Users\\Maayan\\IceCream-Maayan&Hadas\\GateWay\\GateWay\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

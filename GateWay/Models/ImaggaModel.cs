@@ -1,49 +1,48 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using RestSharp;
 
-public class ImaggaModel
+namespace GateWay.Models
 {
+    public class ImaggaSampleClass
+{
+
     public List<string> CheckImage(string imageUrl)
     {
         List<string> Result = null;
 
-        string apiKey = "acc_3d60a751e375dec";
-        string apiSecret = "ab6de5aa8915be606ddc95f89971361c";
+        string apiKey = "acc_85435d24acba976";
+        string apiSecret = "f6839696674054ac1f05b9a614e3ca2e";
 
-        string basicAuthValue = System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(String.Format("{0}:{1}", apiKey, apiSecret)));
+            string basicAuthValue = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(String.Format("{0}:{1}", apiKey, apiSecret)));
 
         var client = new RestClient("https://api.imagga.com/v2/tags");
+        //client.Timeout = -1;
+
         var request = new RestRequest();
         request.AddParameter("image_url", imageUrl);
         request.AddHeader("Authorization", String.Format("Basic {0}", basicAuthValue));
 
         RestResponse response = client.Execute(request);
-
-        // Check the actual JSON response
-        Console.WriteLine(response.Content);
-
-        Result = ConvertToTags(response.Content);
+        // Console.Write(response.Content);
+        // Console.ReadLine();
+        Result = ConvertTpDictionary(response.Content);
         return Result;
     }
-
-    public List<string> ConvertToTags(string response)
+    [HttpGet]
+    public List<string> ConvertTpDictionary(string response)
     {
         List<string> Result = new List<string>();
         Root2 theTags = JsonConvert.DeserializeObject<Root2>(response);
 
-        // Check if the structure of theTags matches the JSON response
-        if (theTags != null && theTags.result != null && theTags.result.tags != null)
+        foreach (Tag item in theTags.result.tags)
         {
-            foreach (Tag item in theTags.result.tags)
-            {
-                Result.Add(item.tag.en);
-            }
+            Result.Add(item.tag.en);
         }
 
         return Result;
     }
 }
-
 public class Tag2
 {
     public string en { get; set; }
@@ -55,12 +54,12 @@ public class Tag
     public Tag2 tag { get; set; }
 }
 
-public class Result
-{
-    public List<Tag> tags { get; set; }
-}
+    public class Result
+    {
+        public List<Tag> tags { get; set; }
+    }
 
-public class Status
+    public class Status
 {
     public string text { get; set; }
     public string type { get; set; }
@@ -70,4 +69,7 @@ public class Root2
 {
     public Result result { get; set; }
     public Status status { get; set; }
+}
+
+
 }

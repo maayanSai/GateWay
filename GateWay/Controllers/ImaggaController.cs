@@ -13,7 +13,7 @@ namespace GateWay.Controllers
         [HttpGet]
         public IActionResult CheckForIceCream(string imageUrl)
         {
-            ImaggaModel imaggaSample = new ImaggaModel();
+            ImaggaSampleClass imaggaSample = new ImaggaSampleClass();
 
             // קריאה לפונקציה שבודקת אם יש גלידה בתמונה
             List<string> tags = imaggaSample.CheckImage(imageUrl);
@@ -21,7 +21,9 @@ namespace GateWay.Controllers
             // בדיקה אם "גלידה" נמצאת בתגים
             bool containsIceCream = tags.Contains("ice cream");
 
-            return Ok(new { ContainsIceCream = containsIceCream });
+            return Ok(containsIceCream);
         }
+
+
     }
 }

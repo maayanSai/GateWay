@@ -1,58 +1,96 @@
-﻿
-using GateWay.Models;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Net.Http;
+﻿using Newtonsoft.Json;
+using RestSharp;
 
-
-namespace GateWay.Models
+public class WeatherModel
 {
-    public class WeatherResponse
+    public Root Checkweather(string city)
     {
-        public Main Main { get; set; }
-        public string Name { get; set; }
+        //  string Result = string.Empty;
+
+        string apiKey = "5158de7d3dfa797d71b9f0179f23547a";
+
+        //string basicAuthValue = System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(String.Format("{0}", apiKey)));
+
+        var client = new RestClient("https://api.openweathermap.org/data/2.5/weather");
+        var request = new RestRequest();
+        request.AddParameter("q", city);
+        request.AddParameter("appid", apiKey);
+        //request.AddHeader("Authorization", String.Format("Basic {0}", basicAuthValue));
+
+        RestResponse response = client.Execute(request);
+        // Root theTags = JsonConvert.DeserializeObject<Root>(response);
+
+        Root Result = JsonConvert.DeserializeObject<Root>(response.Content);
+        return Result;
     }
 
-    public class Main
-    {
-        public double Temp { get; set; }
-        public int Pressure { get; set; }
-        public int Humidity { get; set;}
-    }
-
-    public class WeatherModel
-    {
-        private readonly HttpClient _httpClient;
-        private readonly string _apiKey = "a88ab57cba89c967eba5e3d1ed13142c"; // Replace with your OpenWeatherMap API key
-        private readonly string _weatherApiUrl = "https://api.openweathermap.org/data/2.5/weather";
-
-        public WeatherModel()
-        {
-            _httpClient = new HttpClient();
-        }
-
-        public async Task<WeatherResponse> GetWeatherForCity(string cityName)
-        {
-            try
-            {
-                string apiUrl = $"{_weatherApiUrl}?q={cityName}&appid={_apiKey}";
-
-                var response = await _httpClient.GetAsync(apiUrl);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var content = await response.Content.ReadAsStringAsync();
-                    var weatherResponse = JsonConvert.DeserializeObject<WeatherResponse>(content);
-                    return weatherResponse;
-                }
-
-                return null;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-    }
 }
 
+// Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
+public class Clouds
+{
+    public int all { get; set; }
+}
+
+public class Coord
+{
+    public double lon { get; set; }
+    public double lat { get; set; }
+}
+
+public class Main
+{
+    public double temp { get; set; }
+    public double feels_like { get; set; }
+    public double temp_min { get; set; }
+    public double temp_max { get; set; }
+    public int pressure { get; set; }
+    public int humidity { get; set; }
+}
+
+public class Rain
+{
+    [JsonProperty("1h")]
+    public double _1h { get; set; }
+}
+
+public class Root
+{
+    public Coord coord { get; set; }
+    public List<WeatherModel> weather { get; set; }
+    public string @base { get; set; }
+    public Main main { get; set; }
+    public int visibility { get; set; }
+    public Wind wind { get; set; }
+    public Rain rain { get; set; }
+    public Clouds clouds { get; set; }
+    public int dt { get; set; }
+    public Sys sys { get; set; }
+    public int timezone { get; set; }
+    public int id { get; set; }
+    public string name { get; set; }
+    public int cod { get; set; }
+}
+
+public class Sys
+{
+    public int type { get; set; }
+    public int id { get; set; }
+    public string country { get; set; }
+    public int sunrise { get; set; }
+    public int sunset { get; set; }
+}
+
+public class Weather
+{
+    public int id { get; set; }
+    public string main { get; set; }
+    public string description { get; set; }
+    public string icon { get; set; }
+}
+
+public class Wind
+{
+    public double speed { get; set; }
+    public int deg { get; set; }
+}

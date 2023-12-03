@@ -25,7 +25,8 @@ namespace GateWay.Controllers
                 {
                     var json = await response.Content.ReadAsStringAsync();
                     var dateHeb = JsonConvert.DeserializeObject<HebcalRoot>(json);
-                    return Ok(dateHeb);
+                    string dayDate = date;
+                    return Ok(dayDate);
                 }
                 else
                 {

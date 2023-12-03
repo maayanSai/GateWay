@@ -3,7 +3,7 @@ using RestSharp;
 
 public class WeatherModel
 {
-    public Root Checkweather(string city)
+    public double Checkweather(string city)
     {
         //  string Result = string.Empty;
 
@@ -21,7 +21,8 @@ public class WeatherModel
         // Root theTags = JsonConvert.DeserializeObject<Root>(response);
 
         Root Result = JsonConvert.DeserializeObject<Root>(response.Content);
-        return Result;
+        // גוגל אמר להוריד 273.15
+        return (Result.main.temp)-273.15;
     }
 
 }

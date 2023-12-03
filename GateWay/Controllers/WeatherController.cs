@@ -22,7 +22,7 @@ namespace GateWay.Controllers
         {
             try
             {
-                Root weatherResponse = _weatherModel.Checkweather(cityName);
+                double weatherResponse = _weatherModel.Checkweather(cityName);
 
                 if (weatherResponse != null)
                 {

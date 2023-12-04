@@ -25,8 +25,15 @@ namespace GateWay.Controllers
                 {
                     var json = await response.Content.ReadAsStringAsync();
                     var dateHeb = JsonConvert.DeserializeObject<HebcalRoot>(json);
-                    string dayDate = date;
-                    return Ok(dayDate);
+                    bool holiday = dateHeb.events.Count() > 1;
+                    var time = DateTime.Now.ToString("HH:mm:ss");
+
+                    return Ok(new
+                    {
+                        Time=time,
+                        IsHoliday = holiday
+                    });
+
                 }
                 else
                 {
